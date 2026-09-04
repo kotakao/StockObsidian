@@ -33,6 +33,20 @@ AI 機內外互連由**銅轉光**是 Rubin 世代**新增**瓶頸;CPO/矽光子
 | 昇達科 3491 | 毫米波/光通訊 | 待撈 | 09-01 投信買 | 真(待查) |
 | 全新 2455 / 鼎元 2426 | 磊晶/光元件 | 待撈 | 09-01 創新高 | 真(待查) |
 
+## 研究子項:CPO 被動光學 / 耦合(透鏡・FAU・準直)
+> 緣起:NSG(日本板硝子)SEMICON 展板 [SELFOC](https://www.nsg.com/en/media/ir-updates/archive/announcements-2021/new-selfoc-micro-lens) / [miGIO(LoW)](https://hpm.nsg.com/en/lp/micro-optical-elements-soc/index.html),經查證屬實。CPO 需大量**被動光學耦合件**讓光進出 PIC(fiber-to-chip / chip-to-chip);NSG 用 GRIN 透鏡(SELFOC)+ 晶圓級壓印透鏡(LoW)。這是 CPO 常被低估的一關(單模光纖 1000+ 條需精密對位)。【事實】〔源C,2026-09〕
+- **對應台廠**(NSG 為日商、非台股,以下為功能對應標的):
+
+| 標的 | CPO 被動光學角色 |
+|---|---|
+| 大立光 3008 | 微稜鏡準直鏡頭(光束 90° 折轉整形),最接近 NSG 透鏡/準直角色 |
+| 上詮 3363 | FAU 光纖陣列,台積電 COUPE 獨家、被動對位專利 |
+| 波若威 3163 | NVIDIA Spectrum-X 生態系、矽光子光學元件 |
+| 玉晶光 3406 / 先進光 3362 | 光學鏡頭切入 CPO FA |
+
+- **研究方向**:對照 [[族群_晶圓代工與先進封裝]] 研究方向②(連接);追蹤 FAU/微透鏡/準直的**訂單、認證(台積電/NVIDIA)、月營收放量**。
+- ⏳ 待撈:上詮/大立光/波若威 CPO 營收佔比與籌碼。來源:[豐雲學堂 FAU 解析](https://www.sinotrade.com.tw/richclub/hotstock/FAU-%E5%85%89%E7%BA%96%E9%99%A3%E5%88%97%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90-%E5%85%A8%E7%90%83%E5%A4%A7%E5%BB%A0%E8%B2%A1%E5%8B%99%E5%B0%8D%E6%AF%94-%E5%8F%B0%E5%BB%A0%E5%9C%A8-1-6T-CPO-%E4%BE%9B%E6%87%89%E9%8F%88%E7%9A%84%E7%AB%B6%E7%88%AD%E5%8D%A1%E4%BD%8D%E8%88%87-2D-1D-%E7%94%9F%E7%94%A2%E6%88%90%E6%9C%AC%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3-%E8%82%A1%E5%B8%82%E8%A9%B1%E9%A1%8C-69df3002afb40b0a693352b1)、[工商時報 大立光 CPO](https://www.ctee.com.tw/news/20260716701098-430502)。
+
 ## 進場觀察 / 否證
 - **進場**:外資+投信買超連 3 日不中斷 + 量能維持。
 - **否證**:外資單日巨量倒貨、CPO 拉貨延後的法說訊息、通信網路類指數轉弱。
