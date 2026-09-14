@@ -248,9 +248,32 @@ def build_decision(a):
     return f"{week_folder(d)}/{ds}_決策_{label}.md", fm + body
 
 
+def build_news(a):
+    d = parse_date(a.date)
+    ds, dd = d.isoformat(), a.data_date or (a.date or today())
+    tags = list(a.tag)
+    for base in ("新聞彙整", "AI供應鏈"):
+        if base not in tags:
+            tags = ([base] + tags) if base == "新聞彙整" else (tags + [base])
+    fm = ("---\n" "type: report\n" "report_kind: 新聞彙整\n" f"date: {ds}\n"
+          f"data_date: {dd}\n" + yaml_block("tracks", a.tracks)
+          + f"tags: {yaml_flow(tags)}\n" f"created: {ds}\n" "---\n")
+    body = (f"\n# {ds} {a.title}\n\n"
+            f"> 索引:{INDEX}。資料日 {dd}(taiwan-stock MCP 官方;產業 WebSearch)。"
+            f"來源〔源C〕:標帳號/券商+可靠度。**券商=意見,EPS/目標價/需求數字待官方覆核。**{DISCLAIMER}\n\n"
+            "## 一、券商評等 / 重點\n"
+            "| 標的 | 券商 | 重點〔源C〕 | EPS / PE |\n|---|---|---|---|\n|  |  |  |  |\n\n"
+            "## 二、產業 / 主題觀察\n\n"
+            "## 三、官方籌碼對照〔源A〕\n"
+            "| 標的 | 收盤 | 當日 | 外資 | 估值 |\n|---|--:|--:|--:|--:|\n|  |  |  |  |  |\n\n"
+            "## 四、真受惠 vs 概念(信心度?)\n\n"
+            "## 待查證\n- [ ] \n")
+    return f"{week_folder(d)}/{ds}_新聞彙整_{a.title}.md", fm + body
+
+
 BUILDERS = {"stock": build_stock, "etf": build_etf, "sector": build_sector,
             "event": build_event, "analysis": build_analysis,
-            "report": build_report, "decision": build_decision}
+            "report": build_report, "decision": build_decision, "news": build_news}
 
 
 def main():
@@ -298,6 +321,10 @@ def main():
     pd.add_argument("--ticker", required=True); pd.add_argument("--name", default="")
     pd.add_argument("--action", default="觀望", help="買進/加碼/減碼/賣出/觀望")
     pd.add_argument("--stock-link", dest="stock_link", default="")
+
+    pn = sub.add_parser("news", parents=[common, dated], help="新聞彙整/券商評等")
+    pn.add_argument("--title", required=True, help="主題(檔名+H1)")
+    pn.add_argument("--tracks", action="append", default=[], help="追蹤個股連結,可重複")
 
     a = p.parse_args()
     relpath, content = BUILDERS[a.type](a)
