@@ -51,6 +51,8 @@ data_date: 2026-09-04
 - **散戶情緒(誠實聲明)**【推測,中】:X/Reddit 敘事已與專業共識**趨同**(power+memory+packaging)→ 主線瓶頸已被充分認知;**超額報酬較可能藏在尚未被熱議的二階/滯後族群**(測試、散熱二階、CPO 上游),而非再追一線 CoWoS/HBM。
 - **來源**:[Dwarkesh·Dylan Patel 2026-03](https://www.dwarkesh.com/p/dylan-patel)、[TrendForce CPO 2026-07-27](https://www.trendforce.com/presscenter/news/20260727-13151.html)、[Tom's Hardware HBM 至2027+](https://www.tomshardware.com/tech-industry/artificial-intelligence/samsung-and-sk-hynix-warn-ai-driven-memory-shortages-could-last-until-2027-and-beyond-as-hbm-demand-explodes-customers-already-reserving-supply-years-ahead-while-the-wider-dram-market-begins-to-tighten)、[Data Gravity 測試瓶頸](https://www.datagravity.dev/p/the-chip-testing-bottleneck)、[Digitimes ASML EUV 2026-07](https://www.digitimes.com/news/a20260716VL204/asml-capacity-euv-2026-earnings.html)、[SemiAnalysis 800VDC](https://newsletter.semianalysis.com/p/inside-the-800vdc-revolution-part)。
 
+- **(2026-09-14 補)HBM 降規 ≠ 紓困**〔源C Jeff Pu/TrendForce〕:Nvidia Rubin Ultra 降 **12-Hi→8-Hi**(缺貨逼出、非改 4-Hi),base die 仍吃先進製程 → **供給壓力未解、續正面 DRAM/HBM**;惟每 GPU HBM 容量↓為含量輕微逆風。詳 [[2026-09-14_新聞彙整_HBM降規_RubinUltra_8-Hi]]。
+
 ## 二、輪動規律(篩下一棒用)
 - **R1 瓶頸外溢**：晶片本體 → 載板/材料 → 供電 → 散熱 → 光互連。
 - **R2 營收實證**：接棒者月營收 YoY 須已轉強且放量,非純題材。
