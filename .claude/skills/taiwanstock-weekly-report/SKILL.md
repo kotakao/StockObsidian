@@ -1,6 +1,6 @@
 ---
-name: weekly-report
-description: 產生完整 STEP 1~5 週報(AI 供應鏈資金輪動、功率元件之後的下一棒),整合本週新聞/大盤/族群漲幅/法人買賣超排行/月營收財報,填入模板 E、寫成筆記、更新索引後 commit。當使用者輸入 /weekly-report、/週報,或說「寫週報、完整輪動分析、這週的輪動報告」時使用。
+name: taiwanstock-weekly-report
+description: 產生完整 STEP 1~5 週報(AI 供應鏈資金輪動、功率元件之後的下一棒),整合本週新聞/大盤/族群漲幅/法人買賣超排行/月營收財報,填入模板 E、寫成筆記、更新索引後 commit。當使用者輸入 /taiwanstock-weekly-report、/週報,或說「寫週報、完整輪動分析、這週的輪動報告」時使用。
 ---
 
 # 週報(/週報)— 完整 STEP 1~5
@@ -8,6 +8,7 @@ description: 產生完整 STEP 1~5 週報(AI 供應鏈資金輪動、功率元�
 > 遵循 [`CLAUDE.md`](CLAUDE.md)。模板見 分析師角色Prompt.md 模板 **E**;篇幅權重 **STEP 2+3 合計 ≥50%**;STEP 1 嚴格壓縮(600 字內)。
 
 ## 步驟
+0. **資料健檢(先做)**〔源A/B;7 檢查=完整/陳舊/量級/時序/重複/彙總/對帳〕:`list_available_dates` 確認本週交易日 daily_quotes/institutional/market_daily 已同步(缺 → `refetch_date` 補,補不齊標「待同步」);**月營收/財報先確認 `get_monthly_revenue` 目標月已同步**、未同步標「待同步」不對帳(見 memory `mcp-revenue-data-lag`);法人 股÷1000=張、`data_date` 誠實填。任一不過 → 先修或明標,不硬寫。
 1. **新聞掃描(必做)**〔源C〕:`WebSearch` — 全球 AI 週期(NVIDIA/capex/HBM/CoWoS)、美股總經(SOX/Fed/利率/油價)、地緣、當週重大事件。標來源+日期+可靠度。
 2. **本週資金流向**〔源A〕:
    - `get_market_history`(days=6)——一週指數/外資投信自營/量能軌跡。
@@ -24,3 +25,4 @@ description: 產生完整 STEP 1~5 週報(AI 供應鏈資金輪動、功率元�
 - STEP 1 壓縮、STEP 2+3 為主體;每判斷附推論鏈 + 【事實/推測】+信心;數據標來源+日期。
 - 排序變動必須有籌碼/營收/新聞依據,不憑感覺;不虛構漲幅/價位。
 - 追蹤清單維持上限 5;要換檔先說明汰換邏輯。
+- **不做**:不給買賣/個人化投資建議(非持牌投顧)、不預測點位/漲幅%、不憑感覺調排序。
