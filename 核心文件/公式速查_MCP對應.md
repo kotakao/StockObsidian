@@ -1,7 +1,7 @@
 ---
 type: reference
 created: 2026-09-15
-updated: 2026-09-15
+updated: 2026-09-16
 tags: [參考, 公式速查, MCP, 資料來源]
 ---
 
@@ -11,9 +11,11 @@ tags: [參考, 公式速查, MCP, 資料來源]
 > 公式已查核**數學/事實正確**(2026-09-15)。B 類免費 API 為 2026-09-15 WebSearch 查證〔源C,可靠度中高〕。非投資建議。
 
 ## 0. 三層資料來源
-- **A**:`taiwan-stock` MCP 可直接取得/計算〔源A/B〕。
-- **B**:MCP **沒有**(缺現金流表、資產負債表、分點、借券、集保分級)→ 需台股**免費公開 API**。
+- **A**:`taiwan-stock` MCP 可直接取得/計算。〔源A〕行情+三大法人;〔源B〕MCP 官方月營收/季損益(MOPS/TWSE);**〔源D〕MCP 內建 FinMind 工具(第三方聚合,非官方)** — 與官方一致但重大決策仍用〔源B〕複核。
+- **B**:MCP 仍缺、需外部 API 或自爬(大戶分級、分點、BB ratio);借券工具在但資料待同步。
 - **C**:用自己的 [[交易紀錄_TradeLog]] 自算(勝率/賺賠比才有意義)。
+
+> ⚠️ **2026-09-16 更新**:原列為 B(MCP 跑不了)的「盈餘品質 OCF/NI、ROE、存貨天數」已由 MCP **新增 FinMind 工具**補上(見二節),不再需外部 API。已用持股實測 + 官方對帳:台積電 2Q26 單季淨利 FinMind = MCP 官方(累計Q2−Q1),**完全一致**。
 
 ---
 
@@ -61,27 +63,31 @@ tags: [參考, 公式速查, MCP, 資料來源]
 | 融資餘額增幅 / 使用率 | `get_margin_history` |
 | 最大回撤 MDD / 波動 / beta | `get_risk_metrics` |
 | 相對 0050 報酬 | `compare_returns` |
+| 盈餘品質 OCF/NI(單季+TTM) | `get_cash_flow_quality`〔源D FinMind〕 |
+| ROE(單季+TTM,母公司權益) | `get_roe`〔源D FinMind〕 |
+| 應收帳款 / 存貨 / 存貨天數 | `get_working_capital`〔源D FinMind〕 |
+| 借券賣出餘額 | `get_securities_lending`(⚠️工具在、DB 資料待同步) |
 
 ---
 
-## 三、B｜MCP 跑不了 → 台股免費公開 API〔源C,2026-09-15 查證〕
+## 三、B｜MCP 現況與仍需外部者〔2026-09-16 更新〕
 
-> MCP 是「損益+行情+籌碼+估值」,**無現金流量表、無資產負債表、無分點/借券/集保分級**。以下為免費補位:
+**✅ 已由 MCP 新增工具補上(源D FinMind,見二節)**:OCF/NI(`get_cash_flow_quality`)、ROE(`get_roe`)、應收/存貨/存貨天數(`get_working_capital`)。已實測欣興/台積電/技嘉/穎崴 4 檔 + 官方對帳一致 → 手冊二「盈餘品質三檢查 + ROE」現在**在 MCP 內就能跑**。
 
-| B 項目 | 免費可取得? | 端點(dataset) |
+**⚠️ 工具在、資料待同步**:借券賣出 `get_securities_lending`(2330 連查 30 天仍 count=0,DB 未同步;此工具**非按需擷取、不會自己抓** → 待補資料或回報作者)。
+
+**❌ 仍需外部 API / 自爬 / 無資料:**
+
+| 項目 | 免費可得? | 來源 |
 |---|---|---|
-| **OCF/NI**(現金流) | ✅ 免費 | FinMind `TaiwanStockCashFlowsStatement` |
-| **應收/存貨/存貨天數**(資產負債表) | ✅ 免費 | FinMind `TaiwanStockBalanceSheet`;TWSE OpenAPI `/opendata/t187ap07_L_ci`(資產負債) |
-| **ROE**(需淨利+股東權益) | ✅ 免費(自算) | FinMind `TaiwanStockFinancialStatements` + `TaiwanStockBalanceSheet` |
-| **借券賣出餘額** | ✅ 免費 | FinMind `TaiwanStockSecuritiesLending`;TWSE 官方每日亦公布 |
-| **集保股權分散/大戶趨勢** | ⚠️ 部分 | `TaiwanStockShareholding`(集保庫存)**免費**;分級「大戶持股比例」`TaiwanStockHoldingSharesPer` **付費(Sponsor)**;或 TDCC 官網(smart.tdcc.com.tw)每週免費可爬 |
-| **分點籌碼**(券商分行進出) | ❌ 免費不可 | FinMind `TaiwanStockTradingDailyReport` **付費(Sponsor)** |
-| **BB ratio** | ❌ 無資料集 | 僅公司法說會揭露,無公開 API |
+| 集保股權分散/大戶趨勢 | ⚠️ 部分 | `TaiwanStockShareholding`(集保庫存)免費;分級 `TaiwanStockHoldingSharesPer` **付費**;或 TDCC 官網(smart.tdcc.com.tw)每週爬 |
+| 分點籌碼 | ❌ | FinMind `TaiwanStockTradingDailyReport` **付費(Sponsor)** |
+| BB ratio | ❌ | 僅法說會揭露,無公開 API |
 
-**補充(重要)〔源C〕**
-- **FinMind**(api.finmindtrade.com):需註冊拿 token;免費會員**限流約 600 次/小時**;上表標「付費」者需 Sponsor 方案。
-- **TWSE OpenAPI**(openapi.twse.com.tw/v1):**完全免費、免金鑰**,損益 `/opendata/t187ap06_L_ci`、資產負債 `/opendata/t187ap07_L_ci`,季報約季後 **45 天**更新;但多為**最新一期 snapshot**,深歷史仍靠 FinMind/MOPS。上櫃用 TPEX OpenAPI。
-- **公開資訊觀測站 MOPS**:三表最原始出處,但非乾淨 REST(表單式),FinMind/TWSE OpenAPI 已代為打包。
+**背景(源D 後端與官方端點)**
+- **FinMind**(api.finmindtrade.com):MCP 源D 工具的後端;直接用需 token,免費會員**限流約 600 次/小時**,上表標「付費」者需 Sponsor。
+- **TWSE OpenAPI**(openapi.twse.com.tw/v1):免費免金鑰,損益 `/opendata/t187ap06_L_ci`、資產負債 `/opendata/t187ap07_L_ci`,多為近期 snapshot,深歷史靠 FinMind/MOPS;上櫃用 TPEX OpenAPI。
+- **MOPS**:三表最原始出處(表單式,非乾淨 REST)。
 
 ---
 
@@ -102,4 +108,5 @@ tags: [參考, 公式速查, MCP, 資料來源]
 3. **風險固定法單位**:算出是股數,台股 1 張=1000 股,張數再 ÷1000。
 4. **循環股估值反向**:低 PE 警惕、PB 落底才是底(見一節)。
 5. **月營收/財報時間差**:營收 10 日前公布上月;季報 5/15·8/14·11/14(一般業;金融/特殊業較早)、年報 3/31——回測生效日要設在公布日之後(前視偏差)。
-6. **FinMind 免費有限流/部分付費**;**TWSE OpenAPI 免費但多為近期 snapshot**——長歷史對帳優先 MCP,MCP 缺的三表項再上 FinMind。
+6. **源D FinMind 是第三方(非官方)**:MCP 的 `get_cash_flow_quality`/`get_roe`/`get_working_capital` 後端為 FinMind,實測與官方一致(台積電),但重大決策仍用 `get_quarterly_financials` 官方〔源B〕複核。
+7. **借券工具資料待同步**:`get_securities_lending` 目前回空(DB 未同步),尚不可用。
